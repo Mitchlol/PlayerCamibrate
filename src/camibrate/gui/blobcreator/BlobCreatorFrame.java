@@ -29,6 +29,10 @@ public class BlobCreatorFrame extends JFrame{
 		RGBPanelHolder.add(new RGBSelectorPanel(this,images.get(0)));
 		this.add(RGBPanelHolder);
 	}
+	
+	public void AddRanges(){
+		
+	}
 
 	
 }
