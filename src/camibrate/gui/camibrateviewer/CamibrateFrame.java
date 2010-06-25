@@ -93,7 +93,7 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 		}
 		//capture image
 		if(ButtonPanel.ACTION_CAPTUREIMAGE.equals(e.getActionCommand())){
-			robot.capturedImages.add(StaticFunctions.toImage(robot.camera.getData().getWidth(),robot.camera.getData().getHeight(),robot.camera.getData().getImage()));
+			robot.captureImage();
 			mImageGalleryPanel.loadImages();
 			this.validate();
 			mScrollPane.getVerticalScrollBar().setValue(mScrollPane.getVerticalScrollBar().getMaximum());

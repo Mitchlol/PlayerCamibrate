@@ -92,34 +92,5 @@ public class RGBSelectorPanel extends JPanel implements MouseMotionListener, Mou
 		x2 = 0;
 		y2 = 0;
 	}
-/*	
-	class DragyCanvas extends Canvas{
-		DragyCanvas(int width, int height){
-			this.setSize(width, height);
-		}
 
-		@Override
-		public void paint(Graphics g) {
-			super.paint(g);
-			if(x1 <= x2){
-				x = x1;
-				width = x2 - x1;
-			}else{
-				x = x2;
-				width = x1 - x2;
-			}
-			if(y1 <= y2){
-				y = y1;
-				height = y2 - y1;
-			}else{
-				y = y2;
-				height = y1 -y2;
-			}
-				
-			g.drawRect(x, y, width, height);
-			repaint();
-		}
-		
-	}
-	*/
 }

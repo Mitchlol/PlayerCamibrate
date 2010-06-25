@@ -2,6 +2,7 @@ package camibrate;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
@@ -11,9 +12,15 @@ import java.awt.image.DataBuffer;
 import java.awt.image.DataBufferByte;
 import java.awt.image.Raster;
 import java.awt.image.WritableRaster;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class StaticFunctions {
-	public static BufferedImage toImage(int w, int h, byte[] data) {
+	public static BufferedImage RGBToImage(int w, int h, byte[] data) {
 	    DataBuffer buffer = new DataBufferByte(data, w*h);
 	 
 	    int pixelStride = 3;// JP: it was 4; //assuming r, g, b, skip, r, g, b, skip...
@@ -29,6 +36,17 @@ public class StaticFunctions {
 	    ColorModel colorModel = new ComponentColorModel(colorSpace, hasAlpha, isAlphaPremultiplied, transparency, transferType);
 	 
 	    return new BufferedImage(colorModel, raster, isAlphaPremultiplied, null);
+	}
+	
+	public static BufferedImage JPEGToImage(byte[] data) {
+		BufferedImage image = null;
+		InputStream in = new ByteArrayInputStream(data);
+		try {
+			image = ImageIO.read(in);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} 
+		return image;
 	}
 	
 	public static BufferedImage scaleImageToFit(BufferedImage image, int maxWidth, int maxHeight){

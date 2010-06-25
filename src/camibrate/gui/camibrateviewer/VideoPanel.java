@@ -4,11 +4,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javaclient3.BlobfinderInterface;
 import javaclient3.CameraInterface;
 import javaclient3.structures.blobfinder.PlayerBlobfinderBlob;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import camibrate.StaticFunctions;
@@ -55,13 +59,13 @@ public class VideoPanel extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
+		System.out.println("repaint");
 		super.paintComponent(g);
 		
 		g.setColor(Color.blue);
 		g.clearRect(0, 0, width, height);
 		g.fillRect(0, 0, width, height);
-		
-		drawPlayerCameraImage(g,robot.camera);
+		drawPlayerCameraImage(g);
 		if(displayBlobs){
 			drawPlayerBlobfinderData(g,robot.blobfinder);
 		}
@@ -70,10 +74,8 @@ public class VideoPanel extends JPanel {
 	}
 	
 	public boolean drawPlayerBlobfinderData(Graphics g, BlobfinderInterface blobfinder){
-		while(!blobfinder.isDataReady()){
-			
-		}
-		PlayerBlobfinderBlob[] blobs = blobfinder.getData().getBlobs();
+		
+		PlayerBlobfinderBlob[] blobs = robot.blobData.getBlobs();
 		
 		for(int i = 0; i < blobs.length; i++){
 			int transparentColor = blobs[i].getColor()+0x80000000;
@@ -90,14 +92,14 @@ public class VideoPanel extends JPanel {
 		return true;
 	}
 	
-	public boolean drawPlayerCameraImage(Graphics g, CameraInterface camera){
-		BufferedImage image;
+	public boolean drawPlayerCameraImage(Graphics g){
+		//BufferedImage image;
 		
-		while(!camera.isDataReady()){
-	        	
-	    }
-		image = StaticFunctions.toImage(cameraWidth,cameraHeight,robot.camera.getData().getImage());
-		g.drawImage(image, 0, 0, (int)(this.cameraWidth*scaleFactor), (int)(this.cameraHeight*scaleFactor), this);
+		//System.out.println("compression mode = " + robot.camera.getData().getCompression());
+		//image = robot.getImage();
+		//robot.updateImage();
+		
+		g.drawImage(robot.currentImage, 0, 0, (int)(this.cameraWidth*scaleFactor), (int)(this.cameraHeight*scaleFactor), this);
 		
 		return true;
 	}
