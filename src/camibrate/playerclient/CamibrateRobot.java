@@ -75,7 +75,7 @@ public class CamibrateRobot {
 	class UpdateThread extends Thread{
 		public void run() {
 			while(true){
-				System.out.println("update");
+				//System.out.println("update");
 				currentImage = getImage();
 				getBlobData();
 				super.run();

@@ -59,7 +59,7 @@ public class VideoPanel extends JPanel {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-		System.out.println("repaint");
+		//System.out.println("repaint");
 		super.paintComponent(g);
 		
 		g.setColor(Color.blue);
