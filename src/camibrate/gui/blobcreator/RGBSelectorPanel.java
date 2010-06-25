@@ -15,6 +15,7 @@ import camibrate.StaticFunctions;
 public class RGBSelectorPanel extends JPanel implements MouseMotionListener, MouseListener{
 	//public static final int RGBPANEL_WIDTH = 500;
 	//public static final int RGBPANEL_Height = 500;
+	BlobCreatorFrame parent;
 	
 	BufferedImage image;
 	int x=0,y=0,width=0,height=0;
@@ -23,6 +24,7 @@ public class RGBSelectorPanel extends JPanel implements MouseMotionListener, Mou
 	Graphics mg;
 	
 	RGBSelectorPanel(BlobCreatorFrame parent,BufferedImage image){
+		this.parent = parent;
 		//this.image = image;
 		this.image = StaticFunctions.scaleImageToFit(image, 500, 500);
 		this.setPreferredSize(new Dimension(this.image.getWidth(),this.image.getHeight()));
@@ -91,6 +93,7 @@ public class RGBSelectorPanel extends JPanel implements MouseMotionListener, Mou
 		y1 = 0;
 		x2 = 0;
 		y2 = 0;
+		parent.AddRange(StaticFunctions.getRGBRange(x, y, width, height, image));
 	}
 
 }

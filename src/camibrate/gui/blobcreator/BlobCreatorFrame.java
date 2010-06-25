@@ -7,6 +7,7 @@ import java.util.Vector;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import camibrate.RGBRange;
 import camibrate.gui.Strings;
 
 public class BlobCreatorFrame extends JFrame{
@@ -30,7 +31,7 @@ public class BlobCreatorFrame extends JFrame{
 		this.add(RGBPanelHolder);
 	}
 	
-	public void AddRanges(){
+	public void AddRange(RGBRange range){
 		
 	}
 

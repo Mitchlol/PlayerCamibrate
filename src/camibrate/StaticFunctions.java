@@ -1,8 +1,8 @@
 package camibrate;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class StaticFunctions {
 	public static BufferedImage RGBToImage(int w, int h, byte[] data) {
@@ -84,6 +83,27 @@ public class StaticFunctions {
 		//scale to max height
 			return (double)maxHeight/height;
 		}
+	}
+	
+	public static RGBRange getRGBRange(int x,int y,int width, int height, BufferedImage image){
+		/*
+		//BufferedImage subimage = image.getSubimage(x, y, width, height);
+		int[] RGBArray = new int[width*height];
+		image.getRGB(x, y, width, height, RGBArray, 0, 3);
+		System.out.println("x = " + x +", Y = " + y + ",Width = " + width + ",Height = " + height);
+		for(int i = 0; i < RGBArray.length; i++){
+			System.out.println(i + " = " + RGBArray[i]);
+		}
+		*/
+		RGBRange newRange = new RGBRange();
+		System.out.println("x = " + x +", Y = " + y + ",Width = " + width + ",Height = " + height);
+		for(int w=0; w<width; w++){
+			for(int h=0; h<height; h++){
+				newRange.insertColor(new Color(image.getRGB(x+w, y+h)));
+			}
+		}
+		newRange.print();
+		return newRange;
 	}
 }
 

@@ -4,6 +4,37 @@ import java.awt.Color;
 
 public class RGBRange {
 	private int minR, minG, minB, maxR, maxG, maxB;
+	
+	public RGBRange(){
+		minR = 256;
+		maxR = -1;
+		minG = 256;
+		maxG = -1;
+		minB = 256;
+		maxB = -1;
+	}
+	
+	public void print(){
+		System.out.println("("+minR+":"+maxR+","+minG+":"+maxG+","+minB+":"+maxB+")");
+	}
+	
+	public void insertColor(Color c){
+		if(c.getRed() < minR){
+			minR = c.getRed();
+		}else if(c.getRed() > maxR){
+			maxR = c.getRed();
+		}
+		if(c.getGreen() < minG){
+			minG = c.getGreen();
+		}else if(c.getGreen() > maxG){
+			maxG = c.getGreen();
+		}
+		if(c.getBlue() < minB){
+			minB = c.getBlue();
+		}else if(c.getRed() > maxB){
+			maxB = c.getBlue();
+		}
+	}
 
 	public Color getMinColor(){
 		return new Color(minR,minG,minB);
