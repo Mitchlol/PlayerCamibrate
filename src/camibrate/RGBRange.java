@@ -17,6 +17,33 @@ public class RGBRange {
 	public void print(){
 		System.out.println("("+minR+":"+maxR+","+minG+":"+maxG+","+minB+":"+maxB+")");
 	}
+/*	
+	public boolean testColor(Color c){
+		if(c.getRed() >= minR && c.getRed() <= maxR){
+			if(c.getGreen() >= minG && c.getGreen() <= maxG){
+				if(c.getBlue() >= minB && c.getBlue() <= maxB){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+*/	
+	//4 function calls instead of the previous 6 >.< I'm such a NEEERRRRDDDDD!!!!!
+	public boolean testColor(Color c){
+		return testColor(c.getRed(),c.getBlue(),c.getGreen());
+	}
+	
+	public boolean testColor(int r, int g, int b){
+		if(r >= minR && r <= maxR){
+			if(g >= minG && g <= maxG){
+				if(b >= minB && b <= maxB){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 	
 	public void insertColor(Color c){
 		if(c.getRed() < minR){

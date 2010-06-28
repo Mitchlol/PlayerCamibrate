@@ -7,6 +7,17 @@ public class CamibrateBlob {
 	private Color displayColor;
 	private int channel;
 	private String name;
+	
+	public CamibrateBlob(){
+		mRGBRange = new RGBRange();
+		displayColor = new Color(0x00000000);
+		channel = -1;
+		name = new String();
+	}
+	
+	public boolean testColor(Color c){
+		return mRGBRange.testColor(c);
+	}
 
 	public RGBRange getmRGBRange() {
 		return mRGBRange;
