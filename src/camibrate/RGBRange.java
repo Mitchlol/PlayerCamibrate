@@ -31,7 +31,7 @@ public class RGBRange {
 */	
 	//4 function calls instead of the previous 6 >.< I'm such a NEEERRRRDDDDD!!!!!
 	public boolean testColor(Color c){
-		return testColor(c.getRed(),c.getBlue(),c.getGreen());
+		return testColor(c.getRed(),c.getGreen(),c.getBlue());
 	}
 	
 	public boolean testColor(int r, int g, int b){
@@ -48,17 +48,20 @@ public class RGBRange {
 	public void insertColor(Color c){
 		if(c.getRed() < minR){
 			minR = c.getRed();
-		}else if(c.getRed() > maxR){
+		}
+		if(c.getRed() > maxR){
 			maxR = c.getRed();
 		}
 		if(c.getGreen() < minG){
 			minG = c.getGreen();
-		}else if(c.getGreen() > maxG){
+		}
+		if(c.getGreen() > maxG){
 			maxG = c.getGreen();
 		}
 		if(c.getBlue() < minB){
 			minB = c.getBlue();
-		}else if(c.getRed() > maxB){
+		}
+		if(c.getBlue() > maxB){
 			maxB = c.getBlue();
 		}
 	}
