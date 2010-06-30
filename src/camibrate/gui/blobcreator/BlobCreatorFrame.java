@@ -21,6 +21,7 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 	int width, height;
 	RGBSelectorPanel mRGBSelectorPanel;
 	RGBSegmentedDisplay mRGBSegmentedDisplay;
+	ImageSelectorGalleryPanel mImageSelectorGalleryPanel;
 	
 	public BlobCreatorFrame(BlobCreatorData data){
 		//player stuff
@@ -64,11 +65,14 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 		this.add(RGBSegmentedHolder);
 		
 		
-		JScrollPane mScrollPane = new JScrollPane(new ImageSelectorGalleryPanel(data,this));
+		mImageSelectorGalleryPanel = new ImageSelectorGalleryPanel(data,this);
+		JScrollPane mScrollPane = new JScrollPane(mImageSelectorGalleryPanel);
 		mScrollPane.setPreferredSize(new Dimension(1000,90+17));
 		mScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 		mScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		this.add(mScrollPane);
+		
+		
 		this.add(new BlobCreatorButtonPanel(this));
 	}
 	
@@ -80,11 +84,17 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 	public void GoToNextImage(){
 		data.nextImage();
 		GoToCurrentImage();
+		mImageSelectorGalleryPanel.loadImages();
+		mImageSelectorGalleryPanel.repaint();
+		mImageSelectorGalleryPanel.validate();
 	}
 	
 	public void GoToPreviousImage(){
 		data.previousImage();
 		GoToCurrentImage();
+		mImageSelectorGalleryPanel.loadImages();
+		mImageSelectorGalleryPanel.repaint();
+		mImageSelectorGalleryPanel.validate();
 	}
 	
 	public void GoToCurrentImage(){

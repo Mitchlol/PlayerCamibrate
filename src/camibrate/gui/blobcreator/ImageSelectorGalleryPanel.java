@@ -66,7 +66,11 @@ public class ImageSelectorGalleryPanel extends JPanel {
 			this.addMouseListener(this);
 			this.setPreferredSize(new Dimension(THUMBNAIL_WIDTH,THUMBNAIL_HEIGHT));
 			this.scaleFactor = StaticFunctions.getScaleFactor(image.getWidth(), image.getHeight(), THUMBNAIL_WIDTH, THUMBNAIL_HEIGHT);
-			this.setBorder(BorderFactory.createLineBorder (Color.lightGray, 2));
+			if(id == data.imageAt){
+				this.setBorder(BorderFactory.createLineBorder (Color.green, 2));
+			}else{
+				this.setBorder(BorderFactory.createLineBorder (Color.lightGray, 2));
+			}
 			this.setBackground(Color.black);
 		}
 		
@@ -93,13 +97,12 @@ public class ImageSelectorGalleryPanel extends JPanel {
 		public void mouseReleased(MouseEvent arg0) {
 			data.setImageAt(id);
 			parent.GoToCurrentImage();
-			/*
-			robot.capturedImages.remove(id);
+			
 			gallery.loadImages();
 			parent.repaint();
 			parent.validate();
 			System.out.println("elemnt clicked");
-			*/
+			
 		}
 	}
 }
