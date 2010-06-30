@@ -13,8 +13,9 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 
-import camibrate.StaticFunctions;
+import camibrate.CamibrateBlob;
 import camibrate.gui.Strings;
+import camibrate.gui.blobcreator.BlobCreatorData;
 import camibrate.gui.blobcreator.BlobCreatorFrame;
 import camibrate.playerclient.CamibrateRobot;
 
@@ -89,7 +90,11 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 		}else
 		//launch blob creator GUI
 		if(ButtonPanel.ACTION_LAUNCHBLOBCREATOR.equals(e.getActionCommand())){
-			new BlobCreatorFrame(robot.capturedImages).setVisible(true);
+			CamibrateBlob temptestblob = new CamibrateBlob();
+			temptestblob.setDisplayColor(Color.green);
+			BlobCreatorData data = new BlobCreatorData(robot.capturedImages);
+			data.addBlob(temptestblob);
+			new BlobCreatorFrame(data).setVisible(true);
 		}
 		//capture image
 		if(ButtonPanel.ACTION_CAPTUREIMAGE.equals(e.getActionCommand())){

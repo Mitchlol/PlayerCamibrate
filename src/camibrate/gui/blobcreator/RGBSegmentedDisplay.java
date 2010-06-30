@@ -20,14 +20,22 @@ public class RGBSegmentedDisplay extends JPanel {
 		this.blobs = blobs;
 		this.image = image;
 		
+		this.image = StaticFunctions.scaleImageToFit(image, 500, 400);
+		this.setPreferredSize(new Dimension(this.image.getWidth(),this.image.getHeight()));
+		
+	}
+	
+	public void updateBlobs(Vector<CamibrateBlob> blobs){
+		this.blobs = blobs;
+		repaint();
+	}
+	
+	public void updateImage(BufferedImage image){
+		this.image = image;
+		
 		this.image = StaticFunctions.scaleImageToFit(image, 500, 500);
 		this.setPreferredSize(new Dimension(this.image.getWidth(),this.image.getHeight()));
 		
-		this.setBackground(Color.magenta);
-	}
-	
-	public void update(Vector<CamibrateBlob> blobs){
-		this.blobs = blobs;
 		repaint();
 	}
 

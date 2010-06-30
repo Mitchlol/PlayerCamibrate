@@ -21,7 +21,7 @@ import camibrate.playerclient.CamibrateRobot;
 @SuppressWarnings("serial")
 public class VideoPanel extends JPanel {
 	
-	public static final int VIDEOPANEL_HEIGHT = 500;
+	public static final int VIDEOPANEL_HEIGHT = 400;
 	public static final int VIDEOPANEL_WIDTH = 500;
 	
 	CamibrateRobot robot;
@@ -30,6 +30,7 @@ public class VideoPanel extends JPanel {
 	double scaleFactor;
 	int cameraWidth;
 	int cameraHeight;
+	int imageWidth, imageHeight,imageWidthOffset, imageHeightOffset;
 	
 	boolean displayBlobs;
 	
@@ -41,6 +42,10 @@ public class VideoPanel extends JPanel {
 		this.cameraHeight = robot.camera.getData().getHeight();
 		this.scaleFactor = StaticFunctions.getScaleFactor(this.cameraWidth,this.cameraHeight,this.width,this.height);
 		
+		this.imageWidth = (int)(this.cameraWidth*scaleFactor);
+		this.imageHeight = (int)(this.cameraHeight*scaleFactor);
+		this.imageWidthOffset = (width - imageWidth)/2;
+		this.imageHeightOffset = (height - imageHeight)/2;
 		
 		this.setSize(width, height);
 		this.setPreferredSize(new Dimension(width,height));
@@ -62,7 +67,7 @@ public class VideoPanel extends JPanel {
 		//System.out.println("repaint");
 		super.paintComponent(g);
 		
-		g.setColor(Color.blue);
+		g.setColor(Color.black);
 		g.clearRect(0, 0, width, height);
 		g.fillRect(0, 0, width, height);
 		drawPlayerCameraImage(g);
@@ -84,8 +89,8 @@ public class VideoPanel extends JPanel {
 			int y = blobs[i].getTop();
 			int width = blobs[i].getRight()-blobs[i].getLeft();
 			int height = blobs[i].getBottom()-blobs[i].getTop();
-			g.fillRect((int)(x*scaleFactor), (int)(y*scaleFactor), (int)(width*scaleFactor), (int)(height*scaleFactor));
-			
+			//g.fillRect((int)(x*scaleFactor), (int)(y*scaleFactor), (int)(width*scaleFactor), (int)(height*scaleFactor));
+			g.fillRect((int)(x*scaleFactor)+imageWidthOffset, (int)(y*scaleFactor)+imageHeightOffset, (int)(width*scaleFactor), (int)(height*scaleFactor));
 		}
 		
 		
@@ -99,8 +104,8 @@ public class VideoPanel extends JPanel {
 		//image = robot.getImage();
 		//robot.updateImage();
 		
-		g.drawImage(robot.currentImage, 0, 0, (int)(this.cameraWidth*scaleFactor), (int)(this.cameraHeight*scaleFactor), this);
-		
+		//g.drawImage(robot.currentImage, 0, 0, (int)(this.cameraWidth*scaleFactor), (int)(this.cameraHeight*scaleFactor), this);
+		g.drawImage(robot.currentImage, imageWidthOffset, imageHeightOffset, imageWidth, imageHeight, this);
 		return true;
 	}
 

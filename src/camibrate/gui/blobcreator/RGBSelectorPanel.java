@@ -26,7 +26,7 @@ public class RGBSelectorPanel extends JPanel implements MouseMotionListener, Mou
 	RGBSelectorPanel(BlobCreatorFrame parent,BufferedImage image){
 		this.parent = parent;
 		//this.image = image;
-		this.image = StaticFunctions.scaleImageToFit(image, 500, 500);
+		this.image = StaticFunctions.scaleImageToFit(image, 500, 400);
 		this.setPreferredSize(new Dimension(this.image.getWidth(),this.image.getHeight()));
 		
 		
@@ -35,6 +35,13 @@ public class RGBSelectorPanel extends JPanel implements MouseMotionListener, Mou
 		
 		//this.add(new DragyCanvas(this.image.getWidth(),this.image.getHeight()));
 		
+	}
+	
+	public void updateImage(BufferedImage image){
+		this.image = StaticFunctions.scaleImageToFit(image, 500, 500);
+		this.setPreferredSize(new Dimension(this.image.getWidth(),this.image.getHeight()));
+		
+		repaint();
 	}
 	
 	@Override
