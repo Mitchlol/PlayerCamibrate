@@ -8,11 +8,11 @@ public class CamibrateBlob {
 	private int channel;
 	private String name;
 	
-	public CamibrateBlob(){
+	public CamibrateBlob(String name){
 		mRGBRange = new RGBRange();
 		displayColor = new Color(0x00000000);
 		channel = -1;
-		name = new String();
+		this.name = new String(name);
 	}
 	
 	public boolean testColor(Color c){

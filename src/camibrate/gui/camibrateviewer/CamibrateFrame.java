@@ -90,11 +90,12 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 		}else
 		//launch blob creator GUI
 		if(ButtonPanel.ACTION_LAUNCHBLOBCREATOR.equals(e.getActionCommand())){
-			CamibrateBlob temptestblob = new CamibrateBlob();
+			CamibrateBlob temptestblob = new CamibrateBlob("green");
 			temptestblob.setDisplayColor(Color.green);
 			BlobCreatorData data = new BlobCreatorData(robot.capturedImages);
 			data.addBlob(temptestblob);
-			new BlobCreatorFrame(data).setVisible(true);
+			new BlobCreatorThread(data).start();
+			//new BlobCreatorFrame(data).setVisible(true);
 		}
 		//capture image
 		if(ButtonPanel.ACTION_CAPTUREIMAGE.equals(e.getActionCommand())){
@@ -102,6 +103,17 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 			mImageGalleryPanel.loadImages();
 			this.validate();
 			mScrollPane.getVerticalScrollBar().setValue(mScrollPane.getVerticalScrollBar().getMaximum());
+		}
+	}
+	
+	class BlobCreatorThread extends Thread{
+		BlobCreatorData data;
+		public BlobCreatorThread(BlobCreatorData data){
+			this.data = data;
+		}
+		public void run() {
+			super.run();
+			new BlobCreatorFrame(data).setVisible(true);
 		}
 	}
 

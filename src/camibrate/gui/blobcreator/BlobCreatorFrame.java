@@ -76,6 +76,10 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 		this.add(new BlobCreatorButtonPanel(this));
 	}
 	
+	public BlobCreatorData getData(){
+		return data;
+	}
+	
 	public void AddRange(RGBRange range){
 		data.getCurrentBlob().setmRGBRange(range);
 		mRGBSegmentedDisplay.updateBlobs(data.getBlobs());

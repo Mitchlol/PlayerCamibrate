@@ -49,7 +49,7 @@ public class ButtonPanel extends JPanel {
 		captureButton.addActionListener(parent);
 		this.add(captureButton);
 		
-		this.setBackground(Color.green);
+		//this.setBackground(Color.lightGray);
 		this.setPreferredSize(new Dimension(BUTTONPANEL_WIDTH,BUTTONPANEL_HEIGHT));
 	}
 }
