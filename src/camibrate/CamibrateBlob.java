@@ -7,7 +7,13 @@ public class CamibrateBlob {
 	private Color displayColor;
 	private int channel;
 	private String name;
-	
+	//overriding to sting is important so it displays properly in many places....
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return name;
+	}
+
 	public CamibrateBlob(String name){
 		mRGBRange = new RGBRange();
 		displayColor = new Color(0x00000000);
@@ -17,6 +23,10 @@ public class CamibrateBlob {
 	
 	public boolean testColor(Color c){
 		return mRGBRange.testColor(c);
+	}
+	
+	public boolean testColorToYUV(Color c){
+		return mRGBRange.testColor(StaticFunctions.RGB2YUV(c));
 	}
 
 	public RGBRange getmRGBRange() {

@@ -12,6 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
 
+import camibrate.CamibrateBlob;
 import camibrate.RGBRange;
 import camibrate.gui.Strings;
 
@@ -22,6 +23,7 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 	RGBSelectorPanel mRGBSelectorPanel;
 	RGBSegmentedDisplay mRGBSegmentedDisplay;
 	ImageSelectorGalleryPanel mImageSelectorGalleryPanel;
+	BlobCreatorButtonPanel mBlobCreatorButtonPanel;
 	
 	public BlobCreatorFrame(BlobCreatorData data){
 		//player stuff
@@ -72,12 +74,17 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 		mScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		this.add(mScrollPane);
 		
-		
-		this.add(new BlobCreatorButtonPanel(this));
+		mBlobCreatorButtonPanel = new BlobCreatorButtonPanel(this);
+		this.add(mBlobCreatorButtonPanel);
 	}
 	
 	public BlobCreatorData getData(){
 		return data;
+	}
+	
+	public void AddBlob(CamibrateBlob blob){
+		data.addBlob(blob);
+		mBlobCreatorButtonPanel.PopulateColorsComboBox();
 	}
 	
 	public void AddRange(RGBRange range){

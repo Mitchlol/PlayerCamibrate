@@ -105,5 +105,29 @@ public class StaticFunctions {
 		newRange.print();
 		return newRange;
 	}
+	public static RGBRange getYUVRange(int x,int y,int width, int height, BufferedImage image){
+		RGBRange newRange = new RGBRange();
+		System.out.println("x = " + x +", Y = " + y + ",Width = " + width + ",Height = " + height);
+		for(int w=0; w<width; w++){
+			for(int h=0; h<height; h++){
+				newRange.insertColor(RGB2YUV(new Color(image.getRGB(x+w, y+h))));
+			}
+		}
+		newRange.print();
+		return newRange;
+	}
+	
+	public static Color RGB2YUV(Color c){
+		  int y = (306*c.getRed() + 601*c.getGreen() + 117*c.getBlue())  >> 10;
+		  int u = ((-172*c.getRed() - 340*c.getGreen() + 512*c.getBlue()) >> 10)  + 128;
+		  int v = ((512*c.getRed() - 429*c.getGreen() - 83*c.getBlue()) >> 10) + 128;
+		  y = y < 0 ? 0 : y;
+		  u = u < 0 ? 0 : u;
+		  v = v < 0 ? 0 : v;
+		  y = y > 255 ? 255 : y;
+		  u = u > 255 ? 255 : u;
+		  v = v > 255 ? 255 : v;
+		  return new Color(y,u,v);
+		}
 }
 

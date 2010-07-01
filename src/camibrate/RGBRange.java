@@ -15,8 +15,9 @@ public class RGBRange {
 	}
 	
 	public void print(){
-		System.out.println("("+minR+":"+maxR+","+minG+":"+maxG+","+minB+":"+maxB+")");
+		System.out.println("RGB =("+minR+":"+maxR+","+minG+":"+maxG+","+minB+":"+maxB+")");
 	}
+	
 /*	
 	public boolean testColor(Color c){
 		if(c.getRed() >= minR && c.getRed() <= maxR){

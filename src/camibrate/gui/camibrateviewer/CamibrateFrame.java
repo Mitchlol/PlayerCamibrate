@@ -94,6 +94,7 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 			temptestblob.setDisplayColor(Color.green);
 			BlobCreatorData data = new BlobCreatorData(robot.capturedImages);
 			data.addBlob(temptestblob);
+			
 			new BlobCreatorThread(data).start();
 			//new BlobCreatorFrame(data).setVisible(true);
 		}

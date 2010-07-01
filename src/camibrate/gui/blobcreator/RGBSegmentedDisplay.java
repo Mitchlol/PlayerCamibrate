@@ -49,6 +49,7 @@ public class RGBSegmentedDisplay extends JPanel {
 				g.drawRect(x, y, 1, 1);
 				for(int i = 0; i < blobs.size(); i++){
 					if(blobs.get(i).testColor(c)){
+					//if(blobs.get(i).testColorToYUV(c)){
 						//System.out.println("Pixel("+x+","+y+") color("+c+") passed!---------------------");
 						//image.setRGB(x, y, c.getRGB());
 						g.setColor(blobs.get(i).getDisplayColor());

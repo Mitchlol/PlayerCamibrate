@@ -101,6 +101,7 @@ public class RGBSelectorPanel extends JPanel implements MouseMotionListener, Mou
 		x2 = 0;
 		y2 = 0;
 		parent.AddRange(StaticFunctions.getRGBRange(x, y, width, height, image));
+		//parent.AddRange(StaticFunctions.getYUVRange(x, y, width, height, image));
 	}
 
 }
