@@ -6,16 +6,30 @@ public class RGBRange {
 	private int minR, minG, minB, maxR, maxG, maxB;
 	
 	public RGBRange(){
-		minR = 256;
-		maxR = -1;
-		minG = 256;
-		maxG = -1;
-		minB = 256;
-		maxB = -1;
+		minR = 255;
+		maxR = 0;
+		minG = 255;
+		maxG = 0;
+		minB = 255;
+		maxB = 0;
 	}
 	
 	public void print(){
 		System.out.println("RGB =("+minR+":"+maxR+","+minG+":"+maxG+","+minB+":"+maxB+")");
+	}
+	
+	public RGBRange copy(){
+		RGBRange newRange = new RGBRange();
+		//this wont work as the default values max and min get reversed to make the range include everything
+		//newRange.insertColor(this.getMinColor());
+		//newRange.insertColor(this.getMaxColor());
+		newRange.setMinR(minR);
+		newRange.setMinG(minG);
+		newRange.setMinB(minB);
+		newRange.setMaxR(maxR);
+		newRange.setMaxG(maxG);
+		newRange.setMaxB(maxB);
+		return newRange;
 	}
 	
 /*	
@@ -72,7 +86,7 @@ public class RGBRange {
 	}
 	
 	public Color getMaxColor(){
-		return new Color(minR,minG,minB);
+		return new Color(maxR,maxG,maxB);
 	}
 	
 	public Color getAveredgeColor(){

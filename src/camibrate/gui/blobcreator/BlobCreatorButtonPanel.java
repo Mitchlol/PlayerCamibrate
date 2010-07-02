@@ -24,7 +24,7 @@ public class BlobCreatorButtonPanel extends JPanel {
 	
 	JPanel ColorSelectorPanel;
 	JComboBox ColorsComboBox;
-	JButton addColorButton, deleteColorButton;
+	JButton addColorButton, deleteColorButton, resetColorButton, undoButton;
 	
 	BlobCreatorButtonPanel(BlobCreatorFrame newParent){
 		parent = newParent;
@@ -90,6 +90,24 @@ public class BlobCreatorButtonPanel extends JPanel {
 			}
 		});
 		ColorSelectorPanel.add(deleteColorButton);
+		
+		undoButton = new JButton(Strings.UNDO_RANGE);
+		undoButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				parent.UndoLastRange();
+			}
+		});
+		ColorSelectorPanel.add(undoButton);
+		
+		resetColorButton = new JButton(Strings.RESET_COLOR);
+		resetColorButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				parent.ClearCurrentBlob();
+			}
+		});
+		ColorSelectorPanel.add(resetColorButton);
 		
 		this.add(ColorSelectorPanel);
 		

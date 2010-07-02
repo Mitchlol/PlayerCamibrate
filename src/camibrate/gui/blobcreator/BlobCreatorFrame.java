@@ -109,13 +109,27 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 		mRGBSegmentedDisplay.updateBlobs(data.getBlobs());
 	}
 	
+	public void UndoLastRange(){
+		data.getCurrentBlob().undoLastRGBRange();
+		data.getCurrentBlob().undoLastYUVRange();
+		mRGBSegmentedDisplay.updateBlobs(data.getBlobs());
+	}
+	
+	public void ClearCurrentBlob(){
+		data.getCurrentBlob().clearRGBRange();
+		data.getCurrentBlob().clearYUVRange();
+		mRGBSegmentedDisplay.updateBlobs(data.getBlobs());
+	}
+	
 	public void AddRGBRange(RGBRange range){
-		data.getCurrentBlob().setRGBRange(range);
+		//data.getCurrentBlob().setRGBRange(range);
+		data.getCurrentBlob().addRGBRange(range);
 		mRGBSegmentedDisplay.updateBlobs(data.getBlobs());
 	}
 	
 	public void AddYUVRange(YUVRange range){
-		data.getCurrentBlob().setYUVRange(range);
+		//data.getCurrentBlob().setYUVRange(range);
+		data.getCurrentBlob().addYUVRange(range);
 		mRGBSegmentedDisplay.updateBlobs(data.getBlobs());
 	}
 	

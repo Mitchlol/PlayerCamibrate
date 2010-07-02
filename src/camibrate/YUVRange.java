@@ -6,16 +6,30 @@ public class YUVRange {
 	private int minY, minU, minV, maxY, maxU, maxV;
 	
 	public YUVRange(){
-		minY = 256;
-		maxY = -1;
-		minU = 256;
-		maxU = -1;
-		minV = 256;
-		maxV = -1;
+		minY = 255;
+		maxY = 0;
+		minU = 255;
+		maxU = 0;
+		minV = 255;
+		maxV = 0;
 	}
 	
 	public void print(){
 		System.out.println("YUV =("+minY+":"+maxY+","+minU+":"+maxU+","+minV+":"+maxV+")");
+	}
+	
+	public YUVRange copy(){
+		YUVRange newRange = new YUVRange();
+		//this wont work as the default values max and min get reversed to make the range include everything
+		//newRange.insertColor(this.getMinColor());
+		//newRange.insertColor(this.getMaxColor());
+		newRange.setMinY(minY);
+		newRange.setMinU(minU);
+		newRange.setMinV(minV);
+		newRange.setMaxY(maxY);
+		newRange.setMaxU(maxU);
+		newRange.setMaxV(maxV);
+		return newRange;
 	}
 	
 /*	
@@ -76,7 +90,7 @@ public class YUVRange {
 	}
 	
 	public Color getMaxColor(){
-		return new Color(minY,minU,minV);
+		return new Color(maxY,maxU,maxV);
 	}
 	
 	public Color getAveredgeColor(){
