@@ -4,6 +4,7 @@ import java.awt.Color;
 
 public class CamibrateBlob {
 	private RGBRange mRGBRange;
+	private YUVRange mYUVRange;
 	private Color displayColor;
 	private int channel;
 	private String name;
@@ -16,25 +17,36 @@ public class CamibrateBlob {
 
 	public CamibrateBlob(String name){
 		mRGBRange = new RGBRange();
-		displayColor = new Color(0x00000000);
+		mYUVRange = new YUVRange();
+		displayColor = Color.cyan;
 		channel = -1;
 		this.name = new String(name);
 	}
 	
-	public boolean testColor(Color c){
+	public boolean testRGBColor(Color c){
 		return mRGBRange.testColor(c);
 	}
 	
-	public boolean testColorToYUV(Color c){
-		return mRGBRange.testColor(StaticFunctions.RGB2YUV(c));
+	public boolean testYUVColor(Color c){
+		return mYUVRange.testColor(c);
 	}
 
-	public RGBRange getmRGBRange() {
+	public RGBRange getRGBRange() {
 		return mRGBRange;
 	}
-	public void setmRGBRange(RGBRange mRGBRange) {
+	
+	public void setRGBRange(RGBRange mRGBRange) {
 		this.mRGBRange = mRGBRange;
 	}
+	
+	public YUVRange getYUVRange() {
+		return mYUVRange;
+	}
+	
+	public void setYUVRange(YUVRange mYUVRange) {
+		this.mYUVRange = mYUVRange;
+	}
+	
 	public Color getDisplayColor() {
 		return displayColor;
 	}

@@ -22,7 +22,7 @@ public class BlobCreatorButtonPanel extends JPanel {
 	BlobCreatorFrame parent;
 	
 	JPanel ImageNavigationButtonsPanel;
-	JButton nextImageButton, previousImageButton;
+	JButton nextImageButton, previousImageButton, switchModeButton;
 	
 	JPanel ColorSelectorPanel;
 	JComboBox ColorsComboBox;
@@ -48,17 +48,33 @@ public class BlobCreatorButtonPanel extends JPanel {
 			}
 		});
 		
+		switchModeButton = new JButton("RGB <-> YUV");
+		switchModeButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				parent.SwitchMode();
+			}
+		});
+		
 		ImageNavigationButtonsPanel = new JPanel();
 		ImageNavigationButtonsPanel.setPreferredSize(new Dimension(1000,25));
 		ImageNavigationButtonsPanel.setLayout(new BorderLayout());
 		ImageNavigationButtonsPanel.add(previousImageButton,BorderLayout.WEST);
 		ImageNavigationButtonsPanel.add(nextImageButton,BorderLayout.EAST);
+		ImageNavigationButtonsPanel.add(switchModeButton,BorderLayout.CENTER);
 		this.add(ImageNavigationButtonsPanel);
 		
 //color selection
 		ColorSelectorPanel = new JPanel();
 		
 		ColorsComboBox = new JComboBox();
+		ColorsComboBox.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				CamibrateBlob source = (CamibrateBlob)ColorsComboBox.getSelectedItem();
+				parent.SetCurrentBlob(source);
+			}
+		});
 		PopulateColorsComboBox();
 		ColorSelectorPanel.add(ColorsComboBox);
 		

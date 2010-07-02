@@ -13,33 +13,39 @@ import javax.swing.JPanel;
 import camibrate.StaticFunctions;
 
 public class RGBSelectorPanel extends JPanel implements MouseMotionListener, MouseListener{
+	public static final int MODE_RGB = 0;
+	public static final int MODE_YUV = 1;
 	//public static final int RGBPANEL_WIDTH = 500;
 	//public static final int RGBPANEL_Height = 500;
 	BlobCreatorFrame parent;
+	int mode;
 	
-	BufferedImage image;
+	BufferedImage RGBImage;
+	BufferedImage YUVImage;
 	int x=0,y=0,width=0,height=0;
 	int x1=0,x2=0,y1=0,y2=0;
 	
 	Graphics mg;
 	
-	RGBSelectorPanel(BlobCreatorFrame parent,BufferedImage image){
+	RGBSelectorPanel(BlobCreatorFrame parent,BufferedImage RGBImage){
 		this.parent = parent;
 		//this.image = image;
-		this.image = StaticFunctions.scaleImageToFit(image, 500, 400);
-		this.setPreferredSize(new Dimension(this.image.getWidth(),this.image.getHeight()));
-		
+		this.RGBImage = StaticFunctions.scaleImageToFit(RGBImage, 500, 400);
+		this.setPreferredSize(new Dimension(this.RGBImage.getWidth(),this.RGBImage.getHeight()));
+		this.YUVImage = StaticFunctions.RGBImageToYUVImage(this.RGBImage);
 		
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		
 		//this.add(new DragyCanvas(this.image.getWidth(),this.image.getHeight()));
-		
+		int mode = MODE_RGB;
 	}
 	
 	public void updateImage(BufferedImage image){
-		this.image = StaticFunctions.scaleImageToFit(image, 500, 500);
-		this.setPreferredSize(new Dimension(this.image.getWidth(),this.image.getHeight()));
+		this.RGBImage = StaticFunctions.scaleImageToFit(image, 500, 500);
+		this.setPreferredSize(new Dimension(this.RGBImage.getWidth(),this.RGBImage.getHeight()));
+		
+		this.YUVImage = StaticFunctions.RGBImageToYUVImage(RGBImage);
 		
 		repaint();
 	}
@@ -48,8 +54,11 @@ public class RGBSelectorPanel extends JPanel implements MouseMotionListener, Mou
 	protected void paintComponent(Graphics g) {
 		//System.out.println("omg");
 		super.paintComponent(g);
-		g.drawImage(image, 0, 0, image.getWidth(), image.getHeight(), this);
-		
+		if(mode == MODE_RGB){
+			g.drawImage(RGBImage, 0, 0, RGBImage.getWidth(), RGBImage.getHeight(), this);
+		}else if(mode == MODE_YUV){
+			g.drawImage(YUVImage, 0, 0, YUVImage.getWidth(), YUVImage.getHeight(), this);
+		}
 		
 		if(x1 <= x2){
 			x = x1;
@@ -68,6 +77,14 @@ public class RGBSelectorPanel extends JPanel implements MouseMotionListener, Mou
 			
 		g.drawRect(x, y, width, height);
 		repaint();
+	}
+	
+	public void setMode(int mode){
+		this.mode = mode;
+		repaint();
+	}
+	public int getMode(){
+		return this.mode;
 	}
 
 	@Override
@@ -100,8 +117,9 @@ public class RGBSelectorPanel extends JPanel implements MouseMotionListener, Mou
 		y1 = 0;
 		x2 = 0;
 		y2 = 0;
-		parent.AddRange(StaticFunctions.getRGBRange(x, y, width, height, image));
-		//parent.AddRange(StaticFunctions.getYUVRange(x, y, width, height, image));
+		System.out.println("x = " + x +", Y = " + y + ",Width = " + width + ",Height = " + height);
+		parent.AddRGBRange(StaticFunctions.getRGBRange(x, y, width, height, RGBImage));
+		parent.AddYUVRange(StaticFunctions.getYUVRange(x, y, width, height, YUVImage));
 	}
 
 }

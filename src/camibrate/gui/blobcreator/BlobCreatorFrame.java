@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +15,7 @@ import javax.swing.SpringLayout;
 
 import camibrate.CamibrateBlob;
 import camibrate.RGBRange;
+import camibrate.YUVRange;
 import camibrate.gui.Strings;
 
 public class BlobCreatorFrame extends JFrame implements ActionListener{
@@ -87,8 +89,22 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 		mBlobCreatorButtonPanel.PopulateColorsComboBox();
 	}
 	
-	public void AddRange(RGBRange range){
-		data.getCurrentBlob().setmRGBRange(range);
+	public void SetCurrentBlob(CamibrateBlob blob){
+		Vector<CamibrateBlob> blobs = data.getBlobs();
+		for(int i = 0; i < blobs.size(); i++){
+			if (blobs.get(i).equals(blob)){
+				data.setBlobAt(i);
+			}
+		}
+	}
+	
+	public void AddRGBRange(RGBRange range){
+		data.getCurrentBlob().setRGBRange(range);
+		mRGBSegmentedDisplay.updateBlobs(data.getBlobs());
+	}
+	
+	public void AddYUVRange(YUVRange range){
+		data.getCurrentBlob().setYUVRange(range);
 		mRGBSegmentedDisplay.updateBlobs(data.getBlobs());
 	}
 	
@@ -111,6 +127,16 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 	public void GoToCurrentImage(){
 		mRGBSelectorPanel.updateImage(data.getCurrentImage());
 		mRGBSegmentedDisplay.updateImage(data.getCurrentImage());
+	}
+	
+	public void SwitchMode(){
+		if(mRGBSelectorPanel.getMode() == mRGBSelectorPanel.MODE_RGB){
+			mRGBSelectorPanel.setMode(mRGBSelectorPanel.MODE_YUV);
+			mRGBSegmentedDisplay.setMode(mRGBSegmentedDisplay.MODE_YUV);
+		}else{
+			mRGBSelectorPanel.setMode(mRGBSelectorPanel.MODE_RGB);
+			mRGBSegmentedDisplay.setMode(mRGBSegmentedDisplay.MODE_RGB);
+		}
 	}
 
 	@Override

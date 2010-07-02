@@ -1,6 +1,7 @@
 package camibrate;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Transparency;
@@ -96,7 +97,6 @@ public class StaticFunctions {
 		}
 		*/
 		RGBRange newRange = new RGBRange();
-		System.out.println("x = " + x +", Y = " + y + ",Width = " + width + ",Height = " + height);
 		for(int w=0; w<width; w++){
 			for(int h=0; h<height; h++){
 				newRange.insertColor(new Color(image.getRGB(x+w, y+h)));
@@ -105,12 +105,13 @@ public class StaticFunctions {
 		newRange.print();
 		return newRange;
 	}
-	public static RGBRange getYUVRange(int x,int y,int width, int height, BufferedImage image){
-		RGBRange newRange = new RGBRange();
-		System.out.println("x = " + x +", Y = " + y + ",Width = " + width + ",Height = " + height);
+	//this should somehow check that the image is YUV, i dunno how to do that?
+	public static YUVRange getYUVRange(int x,int y,int width, int height, BufferedImage image){
+		YUVRange newRange = new YUVRange();
 		for(int w=0; w<width; w++){
 			for(int h=0; h<height; h++){
-				newRange.insertColor(RGB2YUV(new Color(image.getRGB(x+w, y+h))));
+				//image.getRGB actualy returns YUV if this is passed a yuv image
+				newRange.insertColor(new Color(image.getRGB(x+w, y+h)));
 			}
 		}
 		newRange.print();
@@ -128,6 +129,25 @@ public class StaticFunctions {
 		  u = u > 255 ? 255 : u;
 		  v = v > 255 ? 255 : v;
 		  return new Color(y,u,v);
+	}
+	
+	public static BufferedImage RGBImageToYUVImage(BufferedImage RGBImage){
+		int width = RGBImage.getWidth();
+		int height = RGBImage.getHeight();
+		//BufferedImage YUVImage = new BufferedImage(width, height, RGBImage.getType());
+		BufferedImage YUVImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		Graphics g = YUVImage.getGraphics();
+		g.drawImage(RGBImage, 0, 0, null);
+		for(int x = 0; x < width; x++){
+			for(int y = 0; y <height; y++){
+				//both the RGB and YUB images can call get RGB to get the RGB since it isn't set to YUV yet,,,,
+				//these 2 lines could be one but they are broken down for readability!
+				//if anyone ever reads this, add a comment saying you did and push to github :D:D:D
+				Color YUVColor = RGB2YUV(new Color (YUVImage.getRGB(x, y)));
+				YUVImage.setRGB(x, y, YUVColor.getRGB());
+			}
 		}
+		return YUVImage;
+	}
 }
 

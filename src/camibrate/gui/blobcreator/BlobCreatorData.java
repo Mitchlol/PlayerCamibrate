@@ -99,4 +99,8 @@ public class BlobCreatorData {
 		blobs.add(blob);
 		return blobs.indexOf(blob);
 	}
+	
+	public void setBlobAt(int blobAt){
+		this.blobAt = blobAt;
+	}
 }
