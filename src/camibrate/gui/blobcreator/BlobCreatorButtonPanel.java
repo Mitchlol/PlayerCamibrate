@@ -3,20 +3,18 @@ package camibrate.gui.blobcreator;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import camibrate.CamibrateBlob;
 import camibrate.gui.Strings;
+import camibrate.gui.popupwindowutil.FunctionCaller;
+import camibrate.gui.popupwindowutil.TextInputPopupWindow;
 
 public class BlobCreatorButtonPanel extends JPanel {
 	BlobCreatorFrame parent;
@@ -26,7 +24,7 @@ public class BlobCreatorButtonPanel extends JPanel {
 	
 	JPanel ColorSelectorPanel;
 	JComboBox ColorsComboBox;
-	JButton addColorButton;
+	JButton addColorButton, deleteColorButton;
 	
 	BlobCreatorButtonPanel(BlobCreatorFrame newParent){
 		parent = newParent;
@@ -71,8 +69,10 @@ public class BlobCreatorButtonPanel extends JPanel {
 		ColorsComboBox.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CamibrateBlob source = (CamibrateBlob)ColorsComboBox.getSelectedItem();
-				parent.SetCurrentBlob(source);
+				//CamibrateBlob source = (CamibrateBlob)ColorsComboBox.getSelectedIndex();
+				if(ColorsComboBox.getSelectedIndex() > -1){
+					parent.SetCurrentBlob(ColorsComboBox.getSelectedIndex());
+				}
 			}
 		});
 		PopulateColorsComboBox();
@@ -82,6 +82,14 @@ public class BlobCreatorButtonPanel extends JPanel {
 		addColorButton.addActionListener(new AddColorActionListener(parent));
 		ColorSelectorPanel.add(addColorButton);
 		
+		deleteColorButton = new JButton(Strings.DELETE_COLOR);
+		deleteColorButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				parent.DeleteCurrentBlob();
+			}
+		});
+		ColorSelectorPanel.add(deleteColorButton);
 		
 		this.add(ColorSelectorPanel);
 		
@@ -95,8 +103,8 @@ public class BlobCreatorButtonPanel extends JPanel {
 			ColorsComboBox.addItem(blobs.get(i));
 			//ColorsComboBox.addItem(blobs.get(i).getName());
 			//System.out.println(blobs.get(i).getName());
-			
 		}
+		ColorsComboBox.setSelectedIndex(ColorsComboBox.getItemCount() -1);
 	}
 	
 	class AddColorActionListener implements ActionListener{
@@ -107,9 +115,31 @@ public class BlobCreatorButtonPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			NewColorPopupWindow popupWindow = new NewColorPopupWindow(parent);
+			//NewColorPopupWindow popupWindow = new NewColorPopupWindow(parent);
+			TextInputPopupWindow popupWindow = new TextInputPopupWindow(
+														Strings.ADD_NEW_COLOR,
+														Strings.BLOB_NAME_PROPMPT,
+														Strings.BLOB_NAME_DEFAULT,
+														new FunctionCaller(){
+															@Override
+															public void callFunction(String s) {
+																CamibrateBlob blob = new CamibrateBlob(s);
+																parent.AddBlob(blob);
+															}
+															
+														});
 			popupWindow.setVisible(true);
 		}
 	}
+	/*
+	class AddColorFunctionCaller implements FunctionCaller{
 
+		@Override
+		public void callFunction(String s) {
+			CamibrateBlob blob = new CamibrateBlob(s);
+			parent.AddBlob(blob);
+		}
+		
+	}
+	*/
 }

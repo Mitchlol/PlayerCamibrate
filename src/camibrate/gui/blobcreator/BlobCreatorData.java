@@ -103,4 +103,14 @@ public class BlobCreatorData {
 	public void setBlobAt(int blobAt){
 		this.blobAt = blobAt;
 	}
+	
+	public void deleteBlob(int position){
+		blobs.remove(position);
+			
+		if(blobs.size() > 0){
+			blobAt = 0;
+		}else{
+			blobAt = -1;
+		}
+	}
 }

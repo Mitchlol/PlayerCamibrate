@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,6 +16,7 @@ import camibrate.CamibrateBlob;
 import camibrate.RGBRange;
 import camibrate.YUVRange;
 import camibrate.gui.Strings;
+import camibrate.gui.popupwindowutil.FunctionCaller;
 
 public class BlobCreatorFrame extends JFrame implements ActionListener{
 	//CamibrateRobot robot;
@@ -31,8 +31,6 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 		//player stuff
 		//this.robot = robot;
 		this.data = data;
-		
-		
 		
 		//Main GUI config stuff icon, title, etc...
 		this.setTitle(Strings.MAIN_LABEL);
@@ -86,16 +84,29 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 	
 	public void AddBlob(CamibrateBlob blob){
 		data.addBlob(blob);
+		SetCurrentBlob(data.getBlobs().size() -1);
 		mBlobCreatorButtonPanel.PopulateColorsComboBox();
 	}
-	
+	/*
 	public void SetCurrentBlob(CamibrateBlob blob){
 		Vector<CamibrateBlob> blobs = data.getBlobs();
 		for(int i = 0; i < blobs.size(); i++){
 			if (blobs.get(i).equals(blob)){
 				data.setBlobAt(i);
+				System.out.println("setting curent blob to" + i);
 			}
 		}
+	}
+	*/
+	public void SetCurrentBlob(int blobAt){
+			data.setBlobAt(blobAt);
+	}
+	
+	public void DeleteCurrentBlob(){
+		data.deleteBlob(data.blobAt);
+		
+		mBlobCreatorButtonPanel.PopulateColorsComboBox();
+		mRGBSegmentedDisplay.updateBlobs(data.getBlobs());
 	}
 	
 	public void AddRGBRange(RGBRange range){

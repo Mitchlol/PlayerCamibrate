@@ -1,7 +1,6 @@
-package camibrate.gui.blobcreator;
+package camibrate.gui.popupwindowutil;
 
 import java.awt.Color;
-
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -13,30 +12,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import camibrate.CamibrateBlob;
 import camibrate.gui.Strings;
 
-
-@Deprecated
-@SuppressWarnings("serial")
-public class NewColorPopupWindow extends JFrame {
-	
-	BlobCreatorFrame parent;
-	NewColorPopupWindow(BlobCreatorFrame parent){
-		this.parent = parent;
-		create();
-	}
-	NewColorPopupWindow(String S){
-		if(!S.equals("TEST")){
-			System.exit(ERROR);
-		}
+public class TextInputPopupWindow extends JFrame {
+	String title, prompt, defaultInput;
+	FunctionCaller caller;
+	public TextInputPopupWindow(String title, String prompt, String defaultInput, FunctionCaller caller){
+		this.title = title;
+		this.prompt = prompt;
+		this.defaultInput = defaultInput;
+		this.caller = caller;
 		create();
 	}
 	
 	private void create(){
 		//frame
 		//JFrame popupWindow = new JFrame();
-		this.setTitle(Strings.ADD_NEW_COLOR);
+		this.setTitle(title);
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(300+25,100);
@@ -47,11 +39,11 @@ public class NewColorPopupWindow extends JFrame {
 		namePanel.setPreferredSize(new Dimension(300,30));
 		namePanel.setBackground(Color.red);
 		//label
-		JLabel nameLabel = new JLabel(Strings.BLOB_NAME_PROPMPT);
+		JLabel nameLabel = new JLabel(prompt);
 		nameLabel.setPreferredSize(new Dimension(140,20));
 		namePanel.add(nameLabel);
 		//input feild
-		JTextField nameInput = new JTextField(Strings.BLOB_NAME_DEFAULT);
+		JTextField nameInput = new JTextField(defaultInput);
 		nameInput.setPreferredSize(new Dimension(140,20));
 		namePanel.add(nameInput);
 		
@@ -62,7 +54,7 @@ public class NewColorPopupWindow extends JFrame {
 		//ok Button
 		JButton okButton = new JButton(Strings.ACCEPT);
 		okButton.setPreferredSize(new Dimension(140,20));
-		okButton.addActionListener(new AcceptActionListener(this, nameInput, parent));
+		okButton.addActionListener(new AcceptActionListener(nameInput, caller, this));
 		buttonsPanel.add(okButton);
 		//cancelButton
 		JButton cancelButton = new JButton(Strings.CANCEL);
@@ -75,8 +67,8 @@ public class NewColorPopupWindow extends JFrame {
 	}
 	
 	public class CancelActionListener implements ActionListener{
-		NewColorPopupWindow frame;
-		public CancelActionListener(NewColorPopupWindow frame){
+		TextInputPopupWindow frame;
+		public CancelActionListener(TextInputPopupWindow frame){
 			this.frame = frame;
 		}
 		@Override
@@ -86,24 +78,19 @@ public class NewColorPopupWindow extends JFrame {
 	}
 	
 	public class AcceptActionListener implements ActionListener{
-		NewColorPopupWindow frame;
+		TextInputPopupWindow frame;
+		FunctionCaller caller;
 		JTextField nameInput;
-		BlobCreatorFrame parent;
-		public AcceptActionListener(NewColorPopupWindow frame, JTextField nameInput, BlobCreatorFrame parent){
+		public AcceptActionListener(JTextField nameInput, FunctionCaller caller, TextInputPopupWindow frame){
 			this.frame = frame;
+			this.caller = caller;
 			this.nameInput = nameInput;
-			this.parent = parent;
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			CamibrateBlob blob = new CamibrateBlob(nameInput.getText());
-			parent.AddBlob(blob);
+			caller.callFunction(nameInput.getText());
 			frame.dispose();
 		}
 	}
-	
-	public static void main(String[] args) {
-		NewColorPopupWindow m = new NewColorPopupWindow("TEST");
-		m.setVisible(true);
-	}
+
 }
