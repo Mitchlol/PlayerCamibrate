@@ -1,5 +1,5 @@
 package camibrate.gui.popupwindowutil;
 
-public interface FunctionCaller {
+public interface StringFunctionCaller {
 	public void callFunction(String s);
 }

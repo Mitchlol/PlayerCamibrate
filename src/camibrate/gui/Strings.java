@@ -14,6 +14,8 @@ public class Strings {
 	public static final String DELETE_COLOR = "Delete Color";
 	public static final String RESET_COLOR = "Clear Color's ranges";
 	public static final String UNDO_RANGE = "Undo Last Range";
+	public static final String SET_COLOR_RGB = "Set Display Color";
+	public static final String SET_RGB_PROMPT = "RGB (0-255)";
 	
 	public static final String ACCEPT = "Accept";
 	public static final String CANCEL = "Cancel";

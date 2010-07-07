@@ -14,10 +14,10 @@ import javax.swing.JTextField;
 
 import camibrate.gui.Strings;
 
-public class TextInputPopupWindow extends JFrame {
+public class SingleTextInputPopupWindow extends JFrame {
 	String title, prompt, defaultInput;
-	FunctionCaller caller;
-	public TextInputPopupWindow(String title, String prompt, String defaultInput, FunctionCaller caller){
+	StringFunctionCaller caller;
+	public SingleTextInputPopupWindow(String title, String prompt, String defaultInput, StringFunctionCaller caller){
 		this.title = title;
 		this.prompt = prompt;
 		this.defaultInput = defaultInput;
@@ -67,8 +67,8 @@ public class TextInputPopupWindow extends JFrame {
 	}
 	
 	public class CancelActionListener implements ActionListener{
-		TextInputPopupWindow frame;
-		public CancelActionListener(TextInputPopupWindow frame){
+		SingleTextInputPopupWindow frame;
+		public CancelActionListener(SingleTextInputPopupWindow frame){
 			this.frame = frame;
 		}
 		@Override
@@ -78,10 +78,10 @@ public class TextInputPopupWindow extends JFrame {
 	}
 	
 	public class AcceptActionListener implements ActionListener{
-		TextInputPopupWindow frame;
-		FunctionCaller caller;
+		SingleTextInputPopupWindow frame;
+		StringFunctionCaller caller;
 		JTextField nameInput;
-		public AcceptActionListener(JTextField nameInput, FunctionCaller caller, TextInputPopupWindow frame){
+		public AcceptActionListener(JTextField nameInput, StringFunctionCaller caller, SingleTextInputPopupWindow frame){
 			this.frame = frame;
 			this.caller = caller;
 			this.nameInput = nameInput;

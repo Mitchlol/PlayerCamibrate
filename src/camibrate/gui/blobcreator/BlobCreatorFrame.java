@@ -16,7 +16,7 @@ import camibrate.CamibrateBlob;
 import camibrate.RGBRange;
 import camibrate.YUVRange;
 import camibrate.gui.Strings;
-import camibrate.gui.popupwindowutil.FunctionCaller;
+import camibrate.gui.popupwindowutil.StringFunctionCaller;
 
 public class BlobCreatorFrame extends JFrame implements ActionListener{
 	//CamibrateRobot robot;
@@ -162,6 +162,10 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 			mRGBSelectorPanel.setMode(mRGBSelectorPanel.MODE_RGB);
 			mRGBSegmentedDisplay.setMode(mRGBSegmentedDisplay.MODE_RGB);
 		}
+	}
+	
+	public void SetRGBDisplayColor(Color c){
+		data.getCurrentBlob().setDisplayColor(c);
 	}
 
 	@Override

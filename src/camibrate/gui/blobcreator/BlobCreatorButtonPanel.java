@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -13,8 +15,10 @@ import javax.swing.JPanel;
 
 import camibrate.CamibrateBlob;
 import camibrate.gui.Strings;
-import camibrate.gui.popupwindowutil.FunctionCaller;
-import camibrate.gui.popupwindowutil.TextInputPopupWindow;
+import camibrate.gui.popupwindowutil.ColorFunctionCaller;
+import camibrate.gui.popupwindowutil.ColorInputPopupWindow;
+import camibrate.gui.popupwindowutil.SingleTextInputPopupWindow;
+import camibrate.gui.popupwindowutil.StringFunctionCaller;
 
 public class BlobCreatorButtonPanel extends JPanel {
 	BlobCreatorFrame parent;
@@ -134,20 +138,37 @@ public class BlobCreatorButtonPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			//NewColorPopupWindow popupWindow = new NewColorPopupWindow(parent);
-			TextInputPopupWindow popupWindow = new TextInputPopupWindow(
+			SingleTextInputPopupWindow popupWindow = new SingleTextInputPopupWindow(
 														Strings.ADD_NEW_COLOR,
 														Strings.BLOB_NAME_PROPMPT,
 														Strings.BLOB_NAME_DEFAULT,
-														new FunctionCaller(){
+														new StringFunctionCaller(){
 															@Override
 															public void callFunction(String s) {
 																CamibrateBlob blob = new CamibrateBlob(s);
 																parent.AddBlob(blob);
+																LaunchColorInputPopupWindow();
 															}
 															
 														});
 			popupWindow.setVisible(true);
+			
 		}
+	}
+	
+	private void LaunchColorInputPopupWindow(){
+		ColorInputPopupWindow popupWindow = new ColorInputPopupWindow(
+				Strings.SET_COLOR_RGB,
+				Strings.SET_RGB_PROMPT,
+				new ColorFunctionCaller(){
+					@Override
+					public void callFunction(Color c) {
+						System.out.println(c);
+						parent.SetRGBDisplayColor(c);
+					}
+					
+				});
+		popupWindow.setVisible(true);
 	}
 	/*
 	class AddColorFunctionCaller implements FunctionCaller{
