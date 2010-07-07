@@ -16,6 +16,10 @@ public class Strings {
 	public static final String UNDO_RANGE = "Undo Last Range";
 	public static final String SET_COLOR_RGB = "Set Display Color";
 	public static final String SET_RGB_PROMPT = "RGB (0-255)";
+	public static final String EXPORT_CMV_CONF = "Export CMVision Colorfile";
+	public static final String EXPORT_CMV_CONF_PROMPT = "Enter ColorFile Name:";
+	public static final String EXPORT_CMV_CONF_DEFAULT = "colors.txt";
+	
 	
 	public static final String ACCEPT = "Accept";
 	public static final String CANCEL = "Cancel";

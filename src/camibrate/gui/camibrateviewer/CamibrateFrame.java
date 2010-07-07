@@ -2,6 +2,7 @@ package camibrate.gui.camibrateviewer;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -51,7 +52,11 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 		layout = new SpringLayout();
 		this.setLayout(layout);
 		
-		this.setSize(new Dimension(width+50, height+50));
+		//Insets insets = this.getInsets();
+		//this.setSize(new Dimension(width+(insets.left + insets.right), height+(insets.top + insets.bottom)));
+		//this.pack();
+		this.setSize(new Dimension(width+25, height+27));
+		
 		
 		leftPanel = new JPanel();
 		leftPanel.setBackground(Color.cyan);
@@ -75,6 +80,7 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 		layout.putConstraint(SpringLayout.NORTH, mScrollPane, 0, SpringLayout.NORTH, this.getContentPane());
 		layout.putConstraint(SpringLayout.WEST, mScrollPane, 0, SpringLayout.EAST, leftPanel);
 		this.add(mScrollPane);
+		
 	}
 
 	@Override

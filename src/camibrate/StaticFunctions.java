@@ -102,7 +102,7 @@ public class StaticFunctions {
 				newRange.insertColor(new Color(image.getRGB(x+w, y+h)));
 			}
 		}
-		newRange.print();
+		//newRange.print();
 		return newRange;
 	}
 	//this should somehow check that the image is YUV, i dunno how to do that?
@@ -114,7 +114,7 @@ public class StaticFunctions {
 				newRange.insertColor(new Color(image.getRGB(x+w, y+h)));
 			}
 		}
-		newRange.print();
+		//newRange.print();
 		return newRange;
 	}
 	

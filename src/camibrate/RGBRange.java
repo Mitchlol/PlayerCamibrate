@@ -18,6 +18,11 @@ public class RGBRange {
 		System.out.println("RGB =("+minR+":"+maxR+","+minG+":"+maxG+","+minB+":"+maxB+")");
 	}
 	
+	@Override
+	public String toString(){
+		return new String("("+minR+":"+maxR+","+minG+":"+maxG+","+minB+":"+maxB+")");
+	}
+	
 	public RGBRange copy(){
 		RGBRange newRange = new RGBRange();
 		//this wont work as the default values max and min get reversed to make the range include everything

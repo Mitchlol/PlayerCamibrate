@@ -95,7 +95,7 @@ public class ImageGalleryPanel extends JPanel {
 			gallery.loadImages();
 			parent.repaint();
 			parent.validate();
-			System.out.println("elemnt clicked");
+			//System.out.println("elemnt clicked");
 		}
 	}
 

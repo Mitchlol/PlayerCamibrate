@@ -18,6 +18,11 @@ public class YUVRange {
 		System.out.println("YUV =("+minY+":"+maxY+","+minU+":"+maxU+","+minV+":"+maxV+")");
 	}
 	
+	@Override
+	public String toString(){
+		return new String("("+minY+":"+maxY+","+minU+":"+maxU+","+minV+":"+maxV+")");
+	}
+	
 	public YUVRange copy(){
 		YUVRange newRange = new YUVRange();
 		//this wont work as the default values max and min get reversed to make the range include everything

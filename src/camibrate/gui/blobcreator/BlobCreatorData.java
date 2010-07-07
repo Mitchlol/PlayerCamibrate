@@ -1,6 +1,9 @@
 package camibrate.gui.blobcreator;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.Vector;
 
 import camibrate.CamibrateBlob;
@@ -112,5 +115,47 @@ public class BlobCreatorData {
 		}else{
 			blobAt = -1;
 		}
+	}
+	
+	public void print(){
+		for(int i = 0; i < blobs.size(); i++){
+			System.out.println(blobs.get(i).getName() + ", " + blobs.get(i).getDisplayColor());
+			blobs.get(i).getRGBRange().print();
+			blobs.get(i).getYUVRange().print();
+			System.out.println();
+		}
+	}
+	
+	public void exportCMVColorfile(String filename){
+         try{
+        	 FileOutputStream out;
+             PrintStream p;
+             out = new FileOutputStream(filename);
+             p = new PrintStream( out );
+
+             p.println("[Colors]");
+             CamibrateBlob blob;
+             Color c;
+             for(int i = 0; i < blobs.size(); i++){
+            	 blob = blobs.get(i);
+            	 c = blob.getDisplayColor();
+            	 p.print("("+c.getRed()+","+c.getGreen()+","+c.getBlue()+")");
+            	 p.print(" 0 10 ");//not sure what this "0 10" is but its needed
+            	 p.print(blob.getName());
+            	 p.println();
+             }
+             
+             p.println();//cmvision wont load file without this blank line
+             p.println("[Thresholds]");
+             for(int i = 0; i < blobs.size(); i++){
+            	 blob = blobs.get(i);
+            	 p.println(blob.getYUVRange());
+             }
+
+             p.close();
+             out.close();
+         }catch (Exception e){
+             System.err.println ("Error writing to file");
+         }
 	}
 }

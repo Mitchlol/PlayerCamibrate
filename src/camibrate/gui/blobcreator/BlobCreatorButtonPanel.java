@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.util.Vector;
 
 import javax.swing.JButton;
@@ -28,7 +26,7 @@ public class BlobCreatorButtonPanel extends JPanel {
 	
 	JPanel ColorSelectorPanel;
 	JComboBox ColorsComboBox;
-	JButton addColorButton, deleteColorButton, resetColorButton, undoButton;
+	JButton addColorButton, deleteColorButton, resetColorButton, undoButton, exportCMVConfButton;
 	
 	BlobCreatorButtonPanel(BlobCreatorFrame newParent){
 		parent = newParent;
@@ -113,6 +111,15 @@ public class BlobCreatorButtonPanel extends JPanel {
 		});
 		ColorSelectorPanel.add(resetColorButton);
 		
+		exportCMVConfButton = new JButton(Strings.EXPORT_CMV_CONF);
+		exportCMVConfButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				LaunchCMVFileInputPopupWindow();
+			}
+		});
+		ColorSelectorPanel.add(exportCMVConfButton);
+		
 		this.add(ColorSelectorPanel);
 		
 		
@@ -170,6 +177,23 @@ public class BlobCreatorButtonPanel extends JPanel {
 				});
 		popupWindow.setVisible(true);
 	}
+	
+	private void LaunchCMVFileInputPopupWindow(){
+		SingleTextInputPopupWindow popupWindow = new SingleTextInputPopupWindow(
+				Strings.EXPORT_CMV_CONF,
+				Strings.EXPORT_CMV_CONF_PROMPT,
+				Strings.EXPORT_CMV_CONF_DEFAULT,
+				new StringFunctionCaller(){
+					@Override
+					public void callFunction(String s) {
+						parent.data.exportCMVColorfile(s);
+					}
+					
+				});
+		popupWindow.setVisible(true);
+	}
+	
+	
 	/*
 	class AddColorFunctionCaller implements FunctionCaller{
 
