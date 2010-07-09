@@ -23,4 +23,11 @@ public class Strings {
 	
 	public static final String ACCEPT = "Accept";
 	public static final String CANCEL = "Cancel";
+	public static final String ERROR = "ERROR!!!! RAWR!!!!!";
+	public static final String ERROR_NO_IMAGES = "ERROR: no images, add some images!";
+	public static final String CONNECTION_ERROR = "Connection Error!";
+	public static final String CONNECTION_ERROR_CLIENT = "Error Connecting To Player Server";
+	public static final String CONNECTION_ERROR_CAMERA = "Error Connecting To Camera";
+	public static final String CONNECTION_ERROR_BLOBFINDER = "Blobfinder not found, no blobs!";
+	public static final String CONNECTION_ERROR_UNKNOWN = "UNKNOWN ERROR: see logs...";
 }

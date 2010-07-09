@@ -66,10 +66,12 @@ public class CamibrateRobot {
 	}
 	
 	public void getBlobData(){
-		while(!blobfinder.isDataReady()){
-			
+		if(blobfinder!=null){
+			while(!blobfinder.isDataReady()){
+				
+			}
+			blobData = blobfinder.getData();
 		}
-		blobData = blobfinder.getData();
 	}
 	
 	class UpdateThread extends Thread{
@@ -80,6 +82,14 @@ public class CamibrateRobot {
 				getBlobData();
 				super.run();
 			}
+		}
+	}
+	
+	public boolean hasBlobFinder(){
+		if(blobfinder!=null){
+			return true;
+		}else{
+			return false;
 		}
 	}
 }

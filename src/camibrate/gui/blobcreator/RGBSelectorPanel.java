@@ -117,6 +117,19 @@ public class RGBSelectorPanel extends JPanel implements MouseMotionListener, Mou
 		y1 = 0;
 		x2 = 0;
 		y2 = 0;
+		//make sure sure square isn't out of images bounds
+		if(x<0){
+			x=0;
+		}
+		if(y<0){
+			y=0;
+		}
+		if(x+width>=this.getWidth()){
+			width = this.getWidth()-1-x;
+		}
+		if(y+height>=this.getHeight()){
+			height = this.getHeight()-1-y;
+		}
 		System.out.println("x = " + x +", Y = " + y + ",Width = " + width + ",Height = " + height);
 		parent.AddRGBRange(StaticFunctions.getRGBRange(x, y, width, height, RGBImage));
 		parent.AddYUVRange(StaticFunctions.getYUVRange(x, y, width, height, YUVImage));

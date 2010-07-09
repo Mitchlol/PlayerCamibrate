@@ -11,18 +11,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import camibrate.gui.Strings;
 
-public class SingleTextInputPopupWindow extends JFrame {
-	String title, prompt, defaultInput;
-	StringFunctionCaller caller;
-	public SingleTextInputPopupWindow(String title, String prompt, String defaultInput, StringFunctionCaller caller){
+
+public class MessageOutputPopupWindow extends JFrame {
+	String title, message;
+	public MessageOutputPopupWindow(String title, String message){
 		this.title = title;
-		this.prompt = prompt;
-		this.defaultInput = defaultInput;
-		this.caller = caller;
+		this.message = message;
 		create();
 	}
 	
@@ -45,13 +42,10 @@ public class SingleTextInputPopupWindow extends JFrame {
 		namePanel.setPreferredSize(new Dimension(300,30));
 		//namePanel.setBackground(Color.red);
 		//label
-		JLabel nameLabel = new JLabel(prompt);
-		nameLabel.setPreferredSize(new Dimension(140,20));
+		JLabel nameLabel = new JLabel(message);
+		nameLabel.setPreferredSize(new Dimension(280,20));
+		nameLabel.setHorizontalAlignment(JLabel.CENTER);
 		namePanel.add(nameLabel);
-		//input feild
-		JTextField nameInput = new JTextField(defaultInput);
-		nameInput.setPreferredSize(new Dimension(140,20));
-		namePanel.add(nameInput);
 		
 		//Buttons Box
 		JPanel buttonsPanel = new JPanel();
@@ -60,21 +54,16 @@ public class SingleTextInputPopupWindow extends JFrame {
 		//ok Button
 		JButton okButton = new JButton(Strings.ACCEPT);
 		okButton.setPreferredSize(new Dimension(140,20));
-		okButton.addActionListener(new AcceptActionListener(nameInput, caller, this));
+		okButton.addActionListener(new AcceptActionListener(this));
 		buttonsPanel.add(okButton);
-		//cancelButton
-		JButton cancelButton = new JButton(Strings.CANCEL);
-		cancelButton.setPreferredSize(new Dimension(140,20));
-		cancelButton.addActionListener(new CancelActionListener(this));
-		buttonsPanel.add(cancelButton);
 		
 		this.add(namePanel);
 		this.add(buttonsPanel);
 	}
 	
-	public class CancelActionListener implements ActionListener{
-		SingleTextInputPopupWindow frame;
-		public CancelActionListener(SingleTextInputPopupWindow frame){
+	public class AcceptActionListener implements ActionListener{
+		MessageOutputPopupWindow frame;
+		public AcceptActionListener(MessageOutputPopupWindow frame){
 			this.frame = frame;
 		}
 		@Override
@@ -83,20 +72,6 @@ public class SingleTextInputPopupWindow extends JFrame {
 		}
 	}
 	
-	public class AcceptActionListener implements ActionListener{
-		SingleTextInputPopupWindow frame;
-		StringFunctionCaller caller;
-		JTextField nameInput;
-		public AcceptActionListener(JTextField nameInput, StringFunctionCaller caller, SingleTextInputPopupWindow frame){
-			this.frame = frame;
-			this.caller = caller;
-			this.nameInput = nameInput;
-		}
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			caller.callFunction(nameInput.getText());
-			frame.dispose();
-		}
-	}
+	
 
 }

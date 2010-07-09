@@ -3,13 +3,17 @@ package camibrate.gui.blobcreator;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Vector;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.border.Border;
+import javax.swing.border.EtchedBorder;
 
 import camibrate.CamibrateBlob;
 import camibrate.gui.Strings;
@@ -30,8 +34,14 @@ public class BlobCreatorButtonPanel extends JPanel {
 	
 	BlobCreatorButtonPanel(BlobCreatorFrame newParent){
 		parent = newParent;
-		this.setPreferredSize(new Dimension(1000,300));
+		this.setPreferredSize(new Dimension(1000,200));
 		this.setBackground(Color.orange);
+		FlowLayout layout = new FlowLayout();
+		layout.setHgap(0);
+		layout.setVgap(0);
+		this.setLayout(layout);
+		
+		
 //image navigation		
 		nextImageButton = new JButton("----->");
 		previousImageButton = new JButton("<-----");
@@ -57,11 +67,14 @@ public class BlobCreatorButtonPanel extends JPanel {
 		});
 		
 		ImageNavigationButtonsPanel = new JPanel();
-		ImageNavigationButtonsPanel.setPreferredSize(new Dimension(1000,25));
+		ImageNavigationButtonsPanel.setPreferredSize(new Dimension(1000,50));
 		ImageNavigationButtonsPanel.setLayout(new BorderLayout());
 		ImageNavigationButtonsPanel.add(previousImageButton,BorderLayout.WEST);
 		ImageNavigationButtonsPanel.add(nextImageButton,BorderLayout.EAST);
 		ImageNavigationButtonsPanel.add(switchModeButton,BorderLayout.CENTER);
+		Border border = BorderFactory.createLineBorder(Color.black);
+		//Border border = BorderFactory.createLoweredBevelBorder();
+		ImageNavigationButtonsPanel.setBorder(border);
 		this.add(ImageNavigationButtonsPanel);
 		
 //color selection

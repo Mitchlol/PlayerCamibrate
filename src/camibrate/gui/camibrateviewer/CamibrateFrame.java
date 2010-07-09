@@ -6,10 +6,12 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SpringLayout;
@@ -39,8 +41,7 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 	public CamibrateFrame(CamibrateRobot robot){
 		//player stuff
 		this.robot = robot;
-		this.width = VideoPanel.VIDEOPANEL_WIDTH + ImageGalleryPanel.THUMBNAIL_WIDTH;
-		this.height = VideoPanel.VIDEOPANEL_HEIGHT + ButtonPanel.BUTTONPANEL_HEIGHT;
+		
 		this.leftPanelWidth = robot.camera.getData().getWidth();
 		this.leftPanelHeight = robot.camera.getData().getHeight() + ButtonPanel.BUTTONPANEL_HEIGHT;
 		
@@ -51,12 +52,6 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 		//Frame settings
 		layout = new SpringLayout();
 		this.setLayout(layout);
-		
-		//Insets insets = this.getInsets();
-		//this.setSize(new Dimension(width+(insets.left + insets.right), height+(insets.top + insets.bottom)));
-		//this.pack();
-		this.setSize(new Dimension(width+25, height+27));
-		
 		
 		leftPanel = new JPanel();
 		leftPanel.setBackground(Color.cyan);
@@ -74,12 +69,28 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 		
 		mImageGalleryPanel = new ImageGalleryPanel(robot,this);
 		mScrollPane = new JScrollPane(mImageGalleryPanel);
-		mScrollPane.setPreferredSize(new Dimension(ImageGalleryPanel.THUMBNAIL_WIDTH + 17,height));
+		//mScrollPane.setPreferredSize(new Dimension(ImageGalleryPanel.THUMBNAIL_WIDTH +JScrollBar.WIDTH,VideoPanel.VIDEOPANEL_HEIGHT + ButtonPanel.BUTTONPANEL_HEIGHT));
+		mScrollPane.getViewport().setPreferredSize(new Dimension(ImageGalleryPanel.THUMBNAIL_WIDTH +JScrollBar.WIDTH,VideoPanel.VIDEOPANEL_HEIGHT + ButtonPanel.BUTTONPANEL_HEIGHT));
 		mScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		mScrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		mScrollPane.setBorder(BorderFactory.createEmptyBorder());
 		layout.putConstraint(SpringLayout.NORTH, mScrollPane, 0, SpringLayout.NORTH, this.getContentPane());
 		layout.putConstraint(SpringLayout.WEST, mScrollPane, 0, SpringLayout.EAST, leftPanel);
 		this.add(mScrollPane);
+		
+		//this.width = VideoPanel.VIDEOPANEL_WIDTH + ImageGalleryPanel.THUMBNAIL_WIDTH;
+		//this.height = VideoPanel.VIDEOPANEL_HEIGHT + ButtonPanel.BUTTONPANEL_HEIGHT;
+		//this.setSize(new Dimension(width+25, height+27));
+		this.width = (int)mVideoPanel.getPreferredSize().getWidth() + (int)mScrollPane.getPreferredSize().getWidth();
+		this.height = (int)mVideoPanel.getPreferredSize().getHeight() + (int)mButtonPanel.getPreferredSize().getHeight();
+		this.getContentPane().setPreferredSize(new Dimension(width, height));
+		this.pack();
+		
+		if(!robot.hasBlobFinder()){
+			mVideoPanel.disableBlobs();
+			mButtonPanel.displayBlobsCheckbox.setSelected(false);
+			mButtonPanel.displayBlobsCheckbox.setEnabled(false);
+		}
 		
 	}
 
@@ -120,7 +131,7 @@ public class CamibrateFrame extends JFrame implements ActionListener {
 		}
 		public void run() {
 			super.run();
-			new BlobCreatorFrame(data).setVisible(true);
+			new BlobCreatorFrame(data);//.setVisible(true);
 		}
 	}
 

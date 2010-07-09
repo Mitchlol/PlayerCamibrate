@@ -3,6 +3,7 @@ package camibrate.gui.popupwindowutil;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,15 +34,20 @@ public class ColorInputPopupWindow extends JFrame {
 		//frame
 		//JFrame popupWindow = new JFrame();
 		this.setTitle(title);
-		this.setLocationRelativeTo(null);
+		//this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setSize(300+25,100);
 		this.setLayout(new FlowLayout());
+		Toolkit tk = Toolkit.getDefaultToolkit();
+	    Dimension screenSize = tk.getScreenSize();
+	    int screenHeight = screenSize.height;
+	    int screenWidth = screenSize.width;
+	    this.setLocation(screenWidth/2 - 325/2, screenHeight / 4);
 		
 		//New Name box
 		JPanel namePanel = new JPanel();
 		namePanel.setPreferredSize(new Dimension(300,30));
-		namePanel.setBackground(Color.red);
+		//namePanel.setBackground(Color.red);
 		//label
 		JLabel nameLabel = new JLabel(prompt);
 		nameLabel.setPreferredSize(new Dimension(110,20));
@@ -72,7 +78,7 @@ public class ColorInputPopupWindow extends JFrame {
 		//Buttons Box
 		JPanel buttonsPanel = new JPanel();
 		buttonsPanel.setPreferredSize(new Dimension(300,30));
-		buttonsPanel.setBackground(Color.green);
+		//buttonsPanel.setBackground(Color.green);
 		//ok Button
 		JButton okButton = new JButton(Strings.ACCEPT);
 		okButton.setPreferredSize(new Dimension(140,20));
