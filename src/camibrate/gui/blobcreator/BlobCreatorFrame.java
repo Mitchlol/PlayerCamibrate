@@ -57,7 +57,7 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 			RGBPanelHolder.setBackground(Color.black);
 			SpringLayout RGBPanelHolderLayout = new SpringLayout();
 			RGBPanelHolder.setLayout(RGBPanelHolderLayout);
-			mRGBSelectorPanel = new RGBSelectorPanel(this,data.getCurrentImage());
+			mRGBSelectorPanel = new RGBSelectorPanel(this,data.getCurrentRGBImage(),data.getCurrentYUVImage());
 			RGBPanelHolder.add(mRGBSelectorPanel);
 			RGBPanelHolderLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, mRGBSelectorPanel, 0, SpringLayout.HORIZONTAL_CENTER, RGBPanelHolder);
 			RGBPanelHolderLayout.putConstraint(SpringLayout.VERTICAL_CENTER, mRGBSelectorPanel, 0, SpringLayout.VERTICAL_CENTER, RGBPanelHolder);
@@ -69,7 +69,7 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 			
 			SpringLayout RGBSegmentedHolderLayout = new SpringLayout();
 			RGBSegmentedHolder.setLayout(RGBSegmentedHolderLayout);
-			mRGBSegmentedDisplay = new RGBSegmentedDisplay(data.getBlobs(),data.getCurrentImage());
+			mRGBSegmentedDisplay = new RGBSegmentedDisplay(data.getBlobs(),data.getCurrentRGBImage(),data.getCurrentYUVImage());
 			RGBSegmentedHolder.add(mRGBSegmentedDisplay);
 			RGBSegmentedHolderLayout.putConstraint(SpringLayout.HORIZONTAL_CENTER, mRGBSegmentedDisplay, 0, SpringLayout.HORIZONTAL_CENTER, RGBSegmentedHolder);
 			RGBSegmentedHolderLayout.putConstraint(SpringLayout.VERTICAL_CENTER, mRGBSegmentedDisplay, 0, SpringLayout.VERTICAL_CENTER, RGBSegmentedHolder);
@@ -163,8 +163,8 @@ public class BlobCreatorFrame extends JFrame implements ActionListener{
 	}
 	
 	public void GoToCurrentImage(){
-		mRGBSelectorPanel.updateImage(data.getCurrentImage());
-		mRGBSegmentedDisplay.updateImage(data.getCurrentImage());
+		mRGBSelectorPanel.updateImage(data.getCurrentRGBImage());
+		mRGBSegmentedDisplay.updateImage(data.getCurrentRGBImage());
 	}
 	
 	public void SwitchMode(){

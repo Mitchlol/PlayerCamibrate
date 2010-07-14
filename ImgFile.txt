@@ -1,0 +1,16 @@
+#comment lines are ignored
+#rgb images must be in a section labeled [RGB]
+#yuv images must be in a section labeled [YUV]
+#rgb and yuv images will be matched based on the order they are listed here
+#if there is an uneven number of images it will not run
+#if there is rgb no yuv section the yuv will be generated and vice versa....
+
+[RGB]
+img/rgb0.jpg
+img/rgb1.jpg
+img/rgb2.jpg
+
+[YUV]
+#img/yuv0.jpg
+#img/yuv1.jpg
+#img/yuv2.jpg

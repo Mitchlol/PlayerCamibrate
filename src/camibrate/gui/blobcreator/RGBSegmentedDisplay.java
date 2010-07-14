@@ -20,13 +20,14 @@ public class RGBSegmentedDisplay extends JPanel {
 	BufferedImage RGBImage;
 	BufferedImage YUVImage;
 	
-	RGBSegmentedDisplay(Vector<CamibrateBlob> blobs, BufferedImage RGBImage){
+	RGBSegmentedDisplay(Vector<CamibrateBlob> blobs, BufferedImage RGBImage, BufferedImage YUVImage){
 		this.blobs = blobs;
 		this.RGBImage = RGBImage;
 		
 		this.RGBImage = StaticFunctions.scaleImageToFit(RGBImage, 500, 400);
 		this.setPreferredSize(new Dimension(this.RGBImage.getWidth(),this.RGBImage.getHeight()));
-		this.YUVImage = StaticFunctions.RGBImageToYUVImage(this.RGBImage);
+		//this.YUVImage = StaticFunctions.RGBImageToYUVImage(this.RGBImage);
+		this.YUVImage = StaticFunctions.scaleImageToFit(YUVImage,500,400);
 		
 		int mode = MODE_RGB;
 	}

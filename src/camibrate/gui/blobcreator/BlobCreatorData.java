@@ -7,23 +7,46 @@ import java.io.PrintStream;
 import java.util.Vector;
 
 import camibrate.CamibrateBlob;
+import camibrate.StaticFunctions;
 
 public class BlobCreatorData {
 
-	Vector<BufferedImage> images;
+	Vector<BufferedImage> rgbImages;
+	Vector<BufferedImage> yuvImages;
 	Vector<CamibrateBlob> blobs;
 	int imageAt;
 	int blobAt;
 	
 	public BlobCreatorData(){
-		images = new Vector<BufferedImage>();
+		rgbImages = new Vector<BufferedImage>();
 		int imageAt = -1;
 		blobs = new Vector<CamibrateBlob>();
 	}
 	
-	public BlobCreatorData(Vector<BufferedImage> images){
-		this.images = images;
-		if(images.size() > 0){
+	public BlobCreatorData(Vector<BufferedImage> rgbImages){
+		this.rgbImages = rgbImages;
+		if(rgbImages.size() > 0){
+			imageAt = 0;
+		}else{
+			imageAt = -1;
+		}
+		blobs = new Vector<CamibrateBlob>();
+		int blobAt = -1;
+		
+		yuvImages = new Vector<BufferedImage>();
+		for(int i = 0; i < rgbImages.size(); i++){
+			yuvImages.add(StaticFunctions.RGBImageToYUVImage(this.rgbImages.get(i)));
+		}
+	}
+	
+	public BlobCreatorData(Vector<BufferedImage> rgbImages, Vector<BufferedImage> yuvImages){
+		this.rgbImages = rgbImages;
+		this.yuvImages = yuvImages;
+		if(rgbImages.size() != yuvImages.size()){
+			System.out.println("images uneven in construcor.");
+			System.exit(1);
+		}
+		if(rgbImages.size() > 0){
 			imageAt = 0;
 		}else{
 			imageAt = -1;
@@ -31,10 +54,10 @@ public class BlobCreatorData {
 		blobs = new Vector<CamibrateBlob>();
 		int blobAt = -1;
 	}
-	
-	public BlobCreatorData(Vector<BufferedImage> images, Vector<CamibrateBlob> blobs){
-		this.images = images;
-		if(images.size() > 0){
+/*	
+	public BlobCreatorData(Vector<BufferedImage> rgbImages, Vector<CamibrateBlob> blobs){
+		this.rgbImages = rgbImages;
+		if(rgbImages.size() > 0){
 			imageAt = 0;
 		}else{
 			imageAt = -1;
@@ -45,22 +68,34 @@ public class BlobCreatorData {
 		}else{
 			blobAt = -1;
 		}
+		
+		for(int i = 0; i < rgbImages.size(); i++){
+			yuvImages.add(StaticFunctions.RGBImageToYUVImage(rgbImages.get(i)));
+		}
 	}
-	
-	public BufferedImage getCurrentImage(){
+*/	
+	public BufferedImage getCurrentRGBImage(){
 		if(imageAt == -1){
 			return null;
 		}else{
-			return images.get(imageAt);
+			return rgbImages.get(imageAt);
+		}
+	}
+	
+	public BufferedImage getCurrentYUVImage(){
+		if(imageAt == -1){
+			return null;
+		}else{
+			return yuvImages.get(imageAt);
 		}
 	}
 	
 	public Vector<BufferedImage> getImages(){
-		return images;
+		return rgbImages;
 	}
 	
 	public boolean nextImage(){
-		if(imageAt < images.size()-1){
+		if(imageAt < rgbImages.size()-1){
 			imageAt ++;
 			return true;
 		}else{
@@ -78,7 +113,7 @@ public class BlobCreatorData {
 	}
 	
 	public boolean setImageAt(int imageAt){
-		if(imageAt >= 0 && imageAt < images.size()){
+		if(imageAt >= 0 && imageAt < rgbImages.size()){
 			this.imageAt = imageAt;
 			return true;
 		}else{
